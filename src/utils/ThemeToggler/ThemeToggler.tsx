@@ -16,7 +16,7 @@ const ThemeToggler: React.FC = () => {
 
   return (
     <button
-      className="w-10 h-10 fixed top-4 right-4 flex items-center justify-center rounded-lg bg-gray-500 text-white hover:bg-gray-600 active:bg-gray-700"
+      className={`w-10 h-10 flex items-center justify-center rounded-lg bg-gray-500 text-white hover:bg-gray-600 active:bg-gray-700`}
       onClick={handleToggle}
     >
       {darkMode ? (

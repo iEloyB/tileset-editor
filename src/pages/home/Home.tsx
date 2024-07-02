@@ -1,6 +1,6 @@
 // Home.tsx
 import React from "react";
-import ThemeToggler from "../../utils/ThemeToggler/ThemeToggler";
+import Navbar from "../../components/Home/Navbar/Navbar";
 import { useTheme } from "../../utils/ThemeToggler/ThemeContext";
 
 const Home: React.FC = () => {
@@ -8,11 +8,11 @@ const Home: React.FC = () => {
 
   return (
     <main
-      className={`w-full h-full flex items-center justify-center ${
-        darkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-black"
+      className={`w-full h-screen flex items-center flex-col ${
+        darkMode ? "bg-gray-800 text-white" : "bg-gray-200 text-black"
       }`}
     >
-      <ThemeToggler />
+      <Navbar />
       <h1 className="text-3xl font-bold underline">Hello world!</h1>
     </main>
   );
