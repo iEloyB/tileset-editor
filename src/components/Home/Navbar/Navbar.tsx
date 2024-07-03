@@ -8,7 +8,7 @@ const Navbar: React.FC = () => {
   return (
     <nav
       className={`w-full h-16 flex items-center justify-between px-4 ${
-        darkMode ? "bg-gray-900 text-white" : "bg-gray-400 text-black"
+        darkMode ? "bg-gray-900 text-white" : "bg-gray-300 text-black"
       }`}
     >
       <div className="flex items-center">
