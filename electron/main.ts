@@ -1,7 +1,8 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import fs from "node:fs";
 
 const require = createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -69,3 +70,37 @@ app.on("activate", () => {
 });
 
 app.whenReady().then(createWindow);
+
+ipcMain.on("saveData", (_event, fileName: string, data: any) => {
+  let sData = JSON.stringify(data);
+  let filePath = path.join(app.getPath("userData"), `data/${fileName}.json`);
+
+  const dirPath = path.dirname(filePath);
+  if (!fs.existsSync(dirPath)) {
+    fs.mkdirSync(dirPath, { recursive: true });
+  }
+
+  try {
+    fs.writeFileSync(filePath, sData);
+    //console.log("Data Saved to", filePath);
+  } catch (error) {
+    console.error("Error saving data:", error);
+  }
+});
+
+// Función para leer datos de un archivo
+ipcMain.handle("readData", async (_event, fileName: string) => {
+  let filePath = path.join(app.getPath("userData"), `data/${fileName}.json`);
+
+  try {
+    if (fs.existsSync(filePath)) {
+      let rawData = fs.readFileSync(filePath);
+      let jsonData = JSON.parse(rawData.toString());
+      return jsonData;
+    } else {
+      throw new Error(`File ${fileName}.json not found.`);
+    }
+  } catch (error: any) {
+    //throw new Error(`Error reading data: ${error.message}`);
+  }
+});
