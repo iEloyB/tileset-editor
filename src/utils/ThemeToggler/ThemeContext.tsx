@@ -1,5 +1,10 @@
-// ThemeContext.tsx
-import React, { createContext, useState, useContext, ReactNode } from "react";
+import React, {
+  createContext,
+  useState,
+  useContext,
+  useEffect,
+  ReactNode,
+} from "react";
 
 type ThemeContextType = {
   darkMode: boolean;
@@ -29,6 +34,15 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const toggleDarkMode = () => {
     setDarkMode((prev) => !prev);
   };
+
+  useEffect(() => {
+    if (window.matchMedia) {
+      const systemPrefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+      setDarkMode(systemPrefersDark);
+    }
+  }, []);
 
   return (
     <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>

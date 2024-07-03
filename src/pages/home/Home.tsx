@@ -1,4 +1,3 @@
-// Home.tsx
 import React from "react";
 import Navbar from "../../components/Home/Navbar/Navbar";
 import { useTheme } from "../../utils/ThemeToggler/ThemeContext";
